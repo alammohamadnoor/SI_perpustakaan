@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2644685d-15f1-4b2b-b9fa-dccbcdf8924f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="47"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="no_pinjam" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_pinjam.`no_pinjam` AS tb_pinjam_no_pinjam,
+     tb_pinjam.`tgl_pinjam` AS tb_pinjam_tgl_pinjam,
+     tb_pinjam.`tgl_kembali` AS tb_pinjam_tgl_kembali,
+     tb_pinjam.`id_admin` AS tb_pinjam_id_admin,
+     tb_pinjam.`id_anggota` AS tb_pinjam_id_anggota,
+     tb_pinjam.`kode_buku` AS tb_pinjam_kode_buku,
+     tb_pinjam.`jumlah_pinjam` AS tb_pinjam_jumlah_pinjam,
+     tb_pinjam.`status` AS tb_pinjam_status
+FROM
+     `tb_pinjam` tb_pinjam
+WHERE tb_pinjam.`no_pinjam` = $P{no_pinjam}]]>
+	</queryString>
+	<field name="tb_pinjam_no_pinjam" class="java.lang.String"/>
+	<field name="tb_pinjam_tgl_pinjam" class="java.sql.Date"/>
+	<field name="tb_pinjam_tgl_kembali" class="java.sql.Date"/>
+	<field name="tb_pinjam_id_admin" class="java.lang.String"/>
+	<field name="tb_pinjam_id_anggota" class="java.lang.String"/>
+	<field name="tb_pinjam_kode_buku" class="java.lang.String"/>
+	<field name="tb_pinjam_jumlah_pinjam" class="java.lang.Integer"/>
+	<field name="tb_pinjam_status" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d12978ac-9efc-4552-ba0a-5c5387341c8d" style="Title" x="190" y="10" width="406" height="35" forecolor="#736343"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="30" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[APLIKASI PERPUSTAKAAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1a3c5ebe-08c2-4815-ba3c-e2aaafd196ae" style="SubTitle" x="273" y="82" width="252" height="22"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[SMK ADI LUHUR 2 JAKARTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1a3c5ebe-08c2-4815-ba3c-e2aaafd196ae" style="SubTitle" x="152" y="114" width="477" height="22"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Jl. Raya Condet No.4 RT,5/RW3, Bale Kambang,kramat Jati, Jakarta Timur, 13530 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d12978ac-9efc-4552-ba0a-5c5387341c8d" style="Title" x="190" y="45" width="406" height="35" forecolor="#736343"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[BUKTI PINJAM BUKU]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="96bfd30e-a8af-4948-a1e9-74d7cde5fbf0" x="10" y="12" width="100" height="124"/>
+				<imageExpression><![CDATA["C:\\Users\\llawl\\NetBeans\\Perpustakaan_AdiLuhur\\src\\Menu_perpustakaan\\minilogotransaparant.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="c2688ebb-6f32-4c8b-bf28-b5b7a90ca347" positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="586240bb-a460-460c-b95c-a76c691d0334" style="Column header" x="0" y="0" width="100" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[No. Pinjam]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="530b1a2a-5760-41fd-a78b-5133f84abdcd" style="Column header" x="100" y="0" width="100" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Tgl. Pinjam]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="89dc4610-5a4b-4d50-b48e-825491c1b788" style="Column header" x="200" y="0" width="100" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Tgl. Kembali]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="09f5e68f-f71d-4e44-baff-8df25c4db79d" style="Column header" x="300" y="0" width="100" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[ID Admin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="63c98b2c-bc1d-4995-bb49-a5d5c21c9c32" style="Column header" x="400" y="0" width="100" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[ID Anggota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7410cb93-cc11-43f0-ab96-3fac1b10deac" style="Column header" x="500" y="0" width="100" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Kode Buku]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d52b15a7-0363-4e1c-b081-445181d0747e" style="Column header" x="600" y="0" width="100" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Jumlah Pinjam]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9ce559d6-7d5a-4a94-921c-df9f9ca1972a" style="Column header" x="700" y="0" width="100" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="c403fc66-836e-444a-90f5-5b1f7de32313" style="Row" mode="Opaque" x="0" y="0" width="802" height="15"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="162daf49-cd90-4ffd-9cf3-7286a93da87f" style="Detail" x="0" y="0" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_pinjam_no_pinjam}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="d/M/yyyy">
+					<reportElement uuid="6342d5ac-6c03-49eb-9270-6caf3ca37ed9" style="Detail" x="100" y="0" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_pinjam_tgl_pinjam}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="d/M/yyyy">
+					<reportElement uuid="24e009ed-b508-4773-8bcd-ceb2403bbd86" style="Detail" x="200" y="0" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_pinjam_tgl_kembali}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="fe2823de-4baf-4e5f-9d38-efe179e370e6" style="Detail" x="300" y="0" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_pinjam_id_admin}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="589fb0c7-d6e3-4c99-b536-e6e1673274a2" style="Detail" x="400" y="0" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_pinjam_id_anggota}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="45419ad1-20fe-4044-9b97-dee86178d149" style="Detail" x="500" y="0" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_pinjam_kode_buku}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="8564f154-f5f1-4102-b7de-f204f0e3c2d4" style="Detail" x="600" y="0" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_pinjam_jumlah_pinjam}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="37fb1199-7387-45bd-a2f3-967e50d8241b" style="Detail" x="700" y="0" width="100" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_pinjam_status}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="130" splitType="Stretch">
+			<line>
+				<reportElement uuid="0af569cc-6b8e-4442-ac6c-e6eed3032483" positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="327a68ac-3c21-48cf-99a3-81f844a3f330" x="693" y="17" width="109" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9d2bbcb5-1272-44c7-b92b-552e5e933410" x="649" y="100" width="153" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Dedi Haryanto, S.Kom.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="26605855-3632-49cc-b257-ae6feec66418" x="649" y="17" width="44" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9d2bbcb5-1272-44c7-b92b-552e5e933410" x="649" y="37" width="153" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Kepala Perpustakaan]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="d6d1eaec-6b27-4cbd-b521-242a1a560786" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="2de9ef68-7b38-4834-a60c-840613342323" style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="8bbd6b51-0828-436b-aec3-051f65667d4d" style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

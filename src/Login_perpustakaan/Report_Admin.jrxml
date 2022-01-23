@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98cbce5d-c595-4c7d-8227-3448e885d02b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     tb_admin.`id_admin` AS tb_admin_id_admin,
+     tb_admin.`password` AS tb_admin_password,
+     tb_admin.`nama_admin` AS tb_admin_nama_admin,
+     tb_admin.`jenkel` AS tb_admin_jenkel,
+     tb_admin.`email` AS tb_admin_email,
+     tb_admin.`no_telp` AS tb_admin_no_telp
+FROM
+     `tb_admin` tb_admin]]>
+	</queryString>
+	<field name="tb_admin_id_admin" class="java.lang.String"/>
+	<field name="tb_admin_password" class="java.lang.String"/>
+	<field name="tb_admin_nama_admin" class="java.lang.String"/>
+	<field name="tb_admin_jenkel" class="java.lang.String"/>
+	<field name="tb_admin_email" class="java.lang.String"/>
+	<field name="tb_admin_no_telp" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<image>
+				<reportElement uuid="96bfd30e-a8af-4948-a1e9-74d7cde5fbf0" x="-605" y="-21" width="100" height="124"/>
+				<imageExpression><![CDATA["C:\\Users\\llawl\\NetBeans\\Perpustakaan_AdiLuhur\\src\\Menu_perpustakaan\\minilogotransaparant.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="1a3c5ebe-08c2-4815-ba3c-e2aaafd196ae" style="SubTitle" x="293" y="71" width="252" height="22"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[SMK ADI LUHUR 2 JAKARTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d12978ac-9efc-4552-ba0a-5c5387341c8d" style="Title" x="210" y="-1" width="406" height="35" forecolor="#736343"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="30" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[APLIKASI PERPUSTAKAAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1a3c5ebe-08c2-4815-ba3c-e2aaafd196ae" style="SubTitle" x="172" y="103" width="477" height="22"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Jl. Raya Condet No.4 RT,5/RW3, Bale Kambang,kramat Jati, Jakarta Timur, 13530 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d12978ac-9efc-4552-ba0a-5c5387341c8d" style="Title" x="239" y="34" width="351" height="35" forecolor="#736343"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[LAPORAN DATA ADMIN]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="56b150ce-82b9-41da-ba52-786d4c25e0b2" x="30" y="0" width="100" height="120"/>
+				<imageExpression><![CDATA["C:\\Users\\llawl\\NetBeans\\Perpustakaan_AdiLuhur\\src\\Login_perpustakaan\\minilogotransaparant.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="37477f45-2b31-47df-8ff7-2c1f1b215c78" positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="15c79935-7f70-4932-93d8-6f986b08602c" style="Column header" x="0" y="0" width="86" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[ID Admin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ca9014fd-70c8-4476-87ed-664181bbe365" style="Column header" x="86" y="0" width="88" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Password]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1ef2ed25-de40-4234-9990-03f7da9cf30f" style="Column header" x="174" y="0" width="191" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Nama Admin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a780caa7-717b-4859-a7af-37e6fe043363" style="Column header" x="365" y="0" width="103" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Jenis Kelamin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28be18ea-7431-4c16-9fa8-f280b355cef3" style="Column header" x="468" y="0" width="197" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="38fc350a-0703-4f00-afd2-a99ae7ca8fb5" style="Column header" x="665" y="0" width="133" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[No. Telepon]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="cb57f47a-2736-4c30-b270-2196dd25fb83" style="Row" mode="Opaque" x="0" y="0" width="802" height="15"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="6ce7bfa8-fb13-4483-8918-845e51d04cb6" style="Detail" x="0" y="0" width="86" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_admin_id_admin}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="2c0361a7-0cf9-45ad-bb70-7d8200c3dd3c" style="Detail" x="86" y="0" width="88" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_admin_password}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="31bde9b9-c40d-4a99-800f-7122d29ee31b" style="Detail" x="174" y="0" width="191" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_admin_nama_admin}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="0f93a0ab-f17c-496c-aec7-bbe7331b66a2" style="Detail" x="365" y="0" width="103" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_admin_jenkel}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="68b6074b-6800-439c-81e3-a48a47032079" style="Detail" x="468" y="0" width="197" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_admin_email}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="1935d238-68b7-48e4-94cd-d7d3be745f56" style="Detail" x="665" y="0" width="133" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tb_admin_no_telp}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="130" splitType="Stretch">
+			<line>
+				<reportElement uuid="d7d2b5b3-72e0-4154-b95a-8c805104c5e8" positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="9d2bbcb5-1272-44c7-b92b-552e5e933410" x="649" y="37" width="153" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Kepala Perpustakaan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9d2bbcb5-1272-44c7-b92b-552e5e933410" x="649" y="100" width="153" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Dedi Haryanto, S.Kom.]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="327a68ac-3c21-48cf-99a3-81f844a3f330" x="693" y="17" width="109" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="26605855-3632-49cc-b257-ae6feec66418" x="649" y="17" width="44" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="dace83b8-1683-4a06-b261-eeec58c2d78c" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="c07156fb-6caf-439a-901f-f17b528cf484" style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="0759486b-7b30-4557-9412-97a20a773d7c" style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

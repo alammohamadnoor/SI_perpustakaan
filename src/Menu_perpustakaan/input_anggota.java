@@ -1,0 +1,754 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Menu_perpustakaan;
+
+import Login_perpustakaan.input_regist;
+import java.sql.Connection;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Connection.koneksi;
+import java.util.HashMap;
+import java.util.Locale;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
+
+public class input_anggota extends javax.swing.JFrame {
+    private Connection conn = new koneksi().connect();
+    private DefaultTableModel TabelMember;
+
+    public static String nama;
+    /**
+     * Creates new form input_siswa
+     */
+    public input_anggota() {
+        initComponents();
+        txtnmlngkp.setText(input_regist.getnama());
+        String KD = UserID.getUserLogin();
+        txtnmlngkp.setText(KD);
+        datatable();
+        kosong();
+        aktif();
+        //AutoNumber();
+        //auto();
+        
+    }
+    
+    protected void aktif (){
+        txtid_anggota.requestFocus();
+        
+    }
+    
+    protected void kosong(){
+        txtid_anggota.setText("");
+        txtnm_anggota.setText("");
+        cbklsangg.setSelectedItem(null);
+        cbjrsn.setSelectedItem(null);
+        cbjenkel.setSelectedItem(null);
+        txtalmt.setText("");
+        txttelp.setText("");
+        
+    }
+    
+    public void cetak () {
+        try {
+            String path ="src/Menu_perpustakaan/Report_Anggota.jasper";
+            HashMap parameter = new HashMap ();
+            JasperPrint print = JasperFillManager.fillReport(path,parameter,conn);
+            JasperViewer.viewReport(print,false);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane,"Dokumen Tidak Ada"+ex);
+        }
+    }
+    
+    public void print () {
+        try {
+            Locale locale = new Locale( "id", "ID" );
+            HashMap par = new HashMap();
+            par.put(JRParameter.REPORT_LOCALE, locale);
+            JasperPrint jp = JasperFillManager.fillReport
+            (input_anggota.class.getResourceAsStream("/Menu_perpustakaan/Report_Anggota.jasper"), par, conn);
+            JasperViewer.viewReport(jp, false);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane,"Dokumen Tidak Ada"+ex);
+        }
+    }
+    
+    protected void datatable(){
+         Object [] Baris = {"ID Anggota","Nama Anggota","Kelas","Jurusan","Jenis Kelamin","Alamat","No. Telepon",};
+            TabelMember = new DefaultTableModel(null,Baris);
+            String cariitem = txtcari.getText();
+            
+            try{
+                String sql = "SELECT * FROM tb_anggota where id_anggota like '%"+cariitem+"%' or nama_anggota like '%"+cariitem+"%'";
+                Statement stat = conn.createStatement();
+                ResultSet hasil = stat.executeQuery(sql);
+                while (hasil.next()){
+                    TabelMember.addRow(new Object [] {
+                        hasil.getString(1),
+                        hasil.getString(2),
+                        hasil.getString(3),
+                        hasil.getString(4),
+                        hasil.getString(5),
+                        hasil.getString(6),
+                        hasil.getString(7)
+                    });
+                }
+                tbmember.setModel(TabelMember);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "data gagal Dipanggil"+e);
+            }
+    }
+    
+    public void auto() {
+    txtid_anggota.setText("");
+        try {
+            String sql1 = "select max(right(id_anggota,4)) from tb_anggota";
+            java.sql.Statement stat = conn.createStatement();
+            ResultSet hasil = stat.executeQuery(sql1);
+            while(hasil.next()) {
+                if(hasil.first()==false) {
+                    txtid_anggota.setText("ANG0001");
+                    
+                } else {
+                    hasil.last();
+                    int code = hasil.getInt(1)+1;
+                    String Nomor = String.valueOf(code);
+                    int noLong = Nomor.length();
+                    
+                    for (int a=0; a<4-noLong;a++) {
+                        Nomor = "0" + Nomor;
+                    }
+                    txtid_anggota.setText("ANG" + Nomor);
+                    
+                }
+            }            
+            } catch (Exception e) {
+        }
+                   txtid_anggota.setEnabled(false);
+                   //txtangg.requestFocus();
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        btentang = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        bpinjam_buku = new javax.swing.JButton();
+        bexit = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        bdaftar_buku = new javax.swing.JButton();
+        btambah_buku = new javax.swing.JButton();
+        txtnmlngkp = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        bpengembalian_buku = new javax.swing.JButton();
+        bcancel = new javax.swing.JButton();
+        txtid_anggota = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        txtnm_anggota = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtalmt = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txttelp = new javax.swing.JTextField();
+        cbklsangg = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbmember = new javax.swing.JTable();
+        bprint = new javax.swing.JButton();
+        txtcari = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        bkembali = new javax.swing.JButton();
+        bsave = new javax.swing.JButton();
+        bedit = new javax.swing.JButton();
+        bdelete = new javax.swing.JButton();
+        bcari = new javax.swing.JButton();
+        cbjrsn = new javax.swing.JComboBox<>();
+        cbjenkel = new javax.swing.JComboBox<>();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(245, 245, 245));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(0, 204, 102));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(245, 245, 245));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 240, -1));
+
+        btentang.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
+        btentang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/about_50px.png"))); // NOI18N
+        btentang.setText(" Tentang");
+        btentang.setBorder(null);
+        btentang.setContentAreaFilled(false);
+        btentang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btentang.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btentang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btentangActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btentang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 240, 50));
+
+        jButton9.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/add_user_male_50px.png"))); // NOI18N
+        jButton9.setText(" Tambah Anggota");
+        jButton9.setBorder(null);
+        jButton9.setContentAreaFilled(false);
+        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 240, 50));
+
+        bpinjam_buku.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
+        bpinjam_buku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/borrow_book_50px.png"))); // NOI18N
+        bpinjam_buku.setText(" Peminjaman Buku");
+        bpinjam_buku.setBorder(null);
+        bpinjam_buku.setContentAreaFilled(false);
+        bpinjam_buku.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bpinjam_buku.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        bpinjam_buku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bpinjam_bukuActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bpinjam_buku, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 240, 50));
+
+        bexit.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
+        bexit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/exit_50px.png"))); // NOI18N
+        bexit.setText(" Keluar");
+        bexit.setBorder(null);
+        bexit.setContentAreaFilled(false);
+        bexit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bexit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        bexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bexitActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bexit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 240, 50));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/administrator_male_30px.png"))); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        jPanel4.setBackground(new java.awt.Color(245, 245, 245));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 240, 70));
+
+        bdaftar_buku.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
+        bdaftar_buku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/books_50px.png"))); // NOI18N
+        bdaftar_buku.setText(" Daftar Buku");
+        bdaftar_buku.setBorder(null);
+        bdaftar_buku.setBorderPainted(false);
+        bdaftar_buku.setContentAreaFilled(false);
+        bdaftar_buku.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bdaftar_buku.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        bdaftar_buku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bdaftar_bukuActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bdaftar_buku, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 240, 50));
+
+        btambah_buku.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
+        btambah_buku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/add_book_50px.png"))); // NOI18N
+        btambah_buku.setText(" Tambah Buku");
+        btambah_buku.setBorder(null);
+        btambah_buku.setContentAreaFilled(false);
+        btambah_buku.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btambah_buku.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btambah_buku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btambah_bukuActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btambah_buku, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 240, 50));
+
+        txtnmlngkp.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        txtnmlngkp.setText("Nama Lengkap Admin");
+        jPanel2.add(txtnmlngkp, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/user1_50px.png"))); // NOI18N
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, -1, -1));
+
+        bpengembalian_buku.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
+        bpengembalian_buku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/return_book_50px.png"))); // NOI18N
+        bpengembalian_buku.setText(" Pengembalian Buku");
+        bpengembalian_buku.setBorder(null);
+        bpengembalian_buku.setContentAreaFilled(false);
+        bpengembalian_buku.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bpengembalian_buku.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        bpengembalian_buku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bpengembalian_bukuActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bpengembalian_buku, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 240, 50));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 610));
+
+        bcancel.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        bcancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/clear_symbol_20px.png"))); // NOI18N
+        bcancel.setText("Kosong");
+        bcancel.setBorder(null);
+        bcancel.setBorderPainted(false);
+        bcancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bcancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bcancelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bcancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 500, 80, 30));
+
+        txtid_anggota.setBackground(new java.awt.Color(245, 245, 245));
+        txtid_anggota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtid_anggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(txtid_anggota, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 210, 30));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("ID Anggota");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, -1, -1));
+
+        txtnm_anggota.setBackground(new java.awt.Color(245, 245, 245));
+        txtnm_anggota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtnm_anggota.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(txtnm_anggota, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 400, 30));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Nama Anggota");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Kelas");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Jurusan");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Jenis Kelamin");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, -1, -1));
+
+        txtalmt.setBackground(new java.awt.Color(245, 245, 245));
+        txtalmt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtalmt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(txtalmt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 400, 30));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Alamat");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Nomor Telepon");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 430, -1, -1));
+
+        txttelp.setBackground(new java.awt.Color(245, 245, 245));
+        txttelp.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txttelp.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(txttelp, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 400, 30));
+
+        cbklsangg.setBackground(new java.awt.Color(245, 245, 245));
+        cbklsangg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cbklsangg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih ...", "X", "XI", "XII" }));
+        jPanel1.add(cbklsangg, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 400, 30));
+
+        tbmember.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbmember.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tbmember.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbmemberMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbmember);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 100, 670, 460));
+
+        bprint.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        bprint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/print_20px.png"))); // NOI18N
+        bprint.setText("Cetak");
+        bprint.setBorder(null);
+        bprint.setBorderPainted(false);
+        bprint.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bprint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bprintActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bprint, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 50, 90, 30));
+
+        txtcari.setBackground(new java.awt.Color(245, 245, 245));
+        txtcari.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtcari.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(txtcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 190, 20));
+
+        jLabel9.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel9.setText("ID/Nama Anggota");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 40, -1, -1));
+
+        bkembali.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        bkembali.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/back_arrow_20px.png"))); // NOI18N
+        bkembali.setText("Kembali");
+        bkembali.setBorder(null);
+        bkembali.setBorderPainted(false);
+        bkembali.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bkembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bkembaliActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bkembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 80, 30));
+
+        bsave.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        bsave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/save_20px.png"))); // NOI18N
+        bsave.setText("Simpan");
+        bsave.setBorder(null);
+        bsave.setBorderPainted(false);
+        bsave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bsave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bsaveActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bsave, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, 80, 30));
+
+        bedit.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        bedit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/edit_20px.png"))); // NOI18N
+        bedit.setText("Ubah");
+        bedit.setBorder(null);
+        bedit.setBorderPainted(false);
+        bedit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                beditActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bedit, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 500, 80, 30));
+
+        bdelete.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        bdelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/delete_bin_20px.png"))); // NOI18N
+        bdelete.setText("Hapus");
+        bdelete.setBorder(null);
+        bdelete.setBorderPainted(false);
+        bdelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bdelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bdeleteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bdelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 500, 80, 30));
+
+        bcari.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        bcari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/search_in_list_20px.png"))); // NOI18N
+        bcari.setText("  Cari");
+        bcari.setBorder(null);
+        bcari.setBorderPainted(false);
+        bcari.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bcari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bcariActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 50, 90, 30));
+
+        cbjrsn.setBackground(new java.awt.Color(245, 245, 245));
+        cbjrsn.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        cbjrsn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih ...", "Teknik Mesin (TM)", "Teknik Komputer dan Jaringan (TKJ)" }));
+        jPanel1.add(cbjrsn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 400, 30));
+
+        cbjenkel.setBackground(new java.awt.Color(245, 245, 245));
+        cbjenkel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        cbjenkel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih ...", "Laki - laki", "Perempuan" }));
+        jPanel1.add(cbjenkel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 330, 400, 30));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        setSize(new java.awt.Dimension(1376, 649));
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btentangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btentangActionPerformed
+        dispose();
+        form_tentang fote;
+        fote = new form_tentang();
+        fote.setVisible(true);
+    }//GEN-LAST:event_btentangActionPerformed
+
+    private void btambah_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btambah_bukuActionPerformed
+        dispose();
+        input_buku inbuk;
+        inbuk = new input_buku();
+        inbuk.setVisible(true);
+    }//GEN-LAST:event_btambah_bukuActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void bpinjam_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bpinjam_bukuActionPerformed
+        dispose();
+        input_peminjaman inpin;
+        inpin = new input_peminjaman();
+        inpin.setVisible(true);
+    }//GEN-LAST:event_bpinjam_bukuActionPerformed
+
+    private void bexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bexitActionPerformed
+        int tny = JOptionPane.showConfirmDialog(null, "Yakin Ingin Keluar ?","Tanya",JOptionPane.YES_NO_OPTION);
+        if (tny==0) {     
+            try {
+                dispose();
+                dispose();
+            } catch (Exception e) {
+            }
+        }
+        new Login_perpustakaan.login().setVisible(true);
+    }//GEN-LAST:event_bexitActionPerformed
+
+    private void bdaftar_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bdaftar_bukuActionPerformed
+        dispose();
+        daftar_buku dabuk;
+        dabuk = new daftar_buku();
+        dabuk.setVisible(true);
+    }//GEN-LAST:event_bdaftar_bukuActionPerformed
+
+    private void bprintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprintActionPerformed
+        print();
+    }//GEN-LAST:event_bprintActionPerformed
+
+    private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
+        datatable();
+    }//GEN-LAST:event_bcariActionPerformed
+
+    private void bkembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkembaliActionPerformed
+        dispose();
+    }//GEN-LAST:event_bkembaliActionPerformed
+
+    private void bdeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bdeleteActionPerformed
+        int ok = JOptionPane.showConfirmDialog(null, "hapus", "konfirmasi dialog",JOptionPane.YES_NO_OPTION);
+        if (ok==0){
+            String sql = "delete from tb_anggota where id_anggota= '"+txtid_anggota.getText()+"'";
+            try {
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
+                kosong();
+                txtid_anggota.requestFocus();
+            } catch (SQLException e){
+                JOptionPane.showMessageDialog(null,"Data Gagal Dihapus"+e);
+            }
+            datatable();
+        }
+    }//GEN-LAST:event_bdeleteActionPerformed
+
+    private void bcancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcancelActionPerformed
+        kosong();
+        datatable();
+    }//GEN-LAST:event_bcancelActionPerformed
+
+    private void bsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsaveActionPerformed
+        String sql = "insert into tb_anggota values (?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, txtid_anggota.getText());
+            stat.setString(2, txtnm_anggota.getText());
+            stat.setString(3, cbklsangg.getItemAt(cbklsangg.getSelectedIndex()));
+            stat.setString(4, cbjrsn.getItemAt(cbjrsn.getSelectedIndex()));
+            stat.setString(5, cbjenkel.getItemAt(cbjenkel.getSelectedIndex()));
+            stat.setString(6, txtalmt.getText());
+            stat.setString(7, txttelp.getText());
+            
+            stat.executeUpdate();
+            JOptionPane.showMessageDialog(null, "data berhasil Disimpan");
+            kosong();
+            txtid_anggota.requestFocus();
+            //auto();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "data gagal disimpan"+e);
+        }
+        datatable();
+    }//GEN-LAST:event_bsaveActionPerformed
+
+    private void beditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beditActionPerformed
+        try {
+            String sql = "update tb_anggota set nama_anggota=?,kelas_anggota=?,jurusan=?,jenis_kelamin=?,alamat=?,no_telp=? where id_anggota = '"+txtid_anggota.getText()+"'";
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, txtnm_anggota.getText());
+            stat.setString(2, cbklsangg.getItemAt(cbklsangg.getSelectedIndex()));
+            stat.setString(3, cbjrsn.getItemAt(cbjrsn.getSelectedIndex()));
+            stat.setString(4, cbjenkel.getItemAt(cbjenkel.getSelectedIndex()));
+            stat.setString(5, txtalmt.getText());
+            stat.setString(6, txttelp.getText());
+            
+            stat.executeUpdate();
+            JOptionPane.showMessageDialog(null, "data berhasil Diubah");
+            kosong();
+            txtid_anggota.requestFocus();
+            //auto();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Data Gagal Diubah" +e);
+        }
+        datatable();
+    }//GEN-LAST:event_beditActionPerformed
+
+    private void tbmemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbmemberMouseClicked
+        int bar = tbmember.getSelectedRow();
+        String a = tbmember.getValueAt(bar, 0). toString();
+        String b = tbmember.getValueAt(bar, 1). toString();
+        String c = tbmember.getValueAt(bar, 2). toString();
+        String d = tbmember.getValueAt(bar, 3). toString();
+        String e = tbmember.getValueAt(bar, 4). toString();
+        String f = tbmember.getValueAt(bar, 5). toString();
+        String g = tbmember.getValueAt(bar, 6). toString();
+        //String f = tbmember.getValueAt(bar, 5). toString();
+        
+        
+        txtid_anggota.setText(a);
+        txtnm_anggota.setText(b);
+        cbklsangg.setSelectedItem(c);
+        cbjrsn.setSelectedItem(d);
+        cbjenkel.setSelectedItem(e);
+        txtalmt.setText(f);
+        txttelp.setText(g);
+    }//GEN-LAST:event_tbmemberMouseClicked
+
+    private void bpengembalian_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bpengembalian_bukuActionPerformed
+        dispose();
+        input_pengembalian inpeng;
+        inpeng = new input_pengembalian();
+        inpeng.setVisible(true);
+    }//GEN-LAST:event_bpengembalian_bukuActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(input_anggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(input_anggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(input_anggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(input_anggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new input_anggota().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bcancel;
+    private javax.swing.JButton bcari;
+    private javax.swing.JButton bdaftar_buku;
+    private javax.swing.JButton bdelete;
+    private javax.swing.JButton bedit;
+    private javax.swing.JButton bexit;
+    private javax.swing.JButton bkembali;
+    private javax.swing.JButton bpengembalian_buku;
+    private javax.swing.JButton bpinjam_buku;
+    private javax.swing.JButton bprint;
+    private javax.swing.JButton bsave;
+    private javax.swing.JButton btambah_buku;
+    private javax.swing.JButton btentang;
+    private javax.swing.JComboBox<String> cbjenkel;
+    private javax.swing.JComboBox<String> cbjrsn;
+    private javax.swing.JComboBox<String> cbklsangg;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbmember;
+    private javax.swing.JTextField txtalmt;
+    private javax.swing.JTextField txtcari;
+    private javax.swing.JTextField txtid_anggota;
+    private javax.swing.JTextField txtnm_anggota;
+    private javax.swing.JLabel txtnmlngkp;
+    private javax.swing.JTextField txttelp;
+    // End of variables declaration//GEN-END:variables
+}
